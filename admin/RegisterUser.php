@@ -185,9 +185,9 @@ if (!isset($_SESSION['aus'])) {
 											<label class="control-label" for="basicinput">Select User</label>
 											<div class="controls">
 												<select class="form-control select2" name = "user_id" required>
-													<option disabled="true" selected="true">Select</option>
+													<option disabled="true" selected="true" value = "">Select</option>
 													<?php while($result = mysqli_fetch_assoc($query1)) { ?>
-													<option value = "<?php echo $result['user_id']; ?>"><?php echo $result['fullname']; ?></option>
+													<option value = "<?php echo $result['user_id']?>"><?php echo nl2br($result['fullname'] .'<br/> ' .$result['email']);  ?></option>
 												<?php } ?>
 												</select>
 											</div>
@@ -200,7 +200,7 @@ if (!isset($_SESSION['aus'])) {
 											<label class="control-label" for="basicinput">Select Course Name</label>
 											<div class="controls">
 												<select class="form-control select2" name = "course_id" required>
-													<option disabled="true" selected="true">Select</option>
+													<option disabled="true" selected="true" value = "">Select</option>
 													<?php while($result = mysqli_fetch_assoc($query2)) { ?>
 													<option value = "<?php echo $result['course_id']; ?>"><?php echo $result['course_name']; ?></option>
 													<?php } ?>
@@ -214,7 +214,7 @@ if (!isset($_SESSION['aus'])) {
 										<div class="control-group">
 											<label class="control-label" for="basicinput">Select Subscription Status </label>
 											<div class="controls">
-												<select name="status" id="category" rerquired>
+												<select name="status" id="category" required>
 
 
 													<option value="1">Yes</option>
