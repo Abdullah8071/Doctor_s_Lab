@@ -40,7 +40,7 @@ if(!isset($_SESSION['id'])) {
   <link href="css/jquery.mb.YTPlayer.min.css" media="all" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" href="css/style.css">
-
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
 
 
 </head>
@@ -79,7 +79,7 @@ if(!isset($_SESSION['id'])) {
           <div class="d-flex align-items-center">
             <div class="site-logo">
               <a href="courses.php" class="d-block">
-                <img src="images/logo.jpg" alt="Image" class="img-fluid">
+              <img src="images/logo.png" alt="Image" height="100px" width=" 270px" class="img-fluid">
               </a>
             </div>
             <div class="mr-auto">

@@ -56,7 +56,7 @@ else {
 		<script type="text/javascript">
 			bkLib.onDomLoaded(nicEditors.allTextAreas);
 		</script>
-
+   		<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
 
 	</head>
 
@@ -71,8 +71,8 @@ else {
                     <a class="brand" href="index.php" style="margin-bottom:2%">
 					Doctor's Lab | Admin
                         </a>
-                        <a href=""style="margin-left:23%">
-						<img src="images/LOGO1.png" style="width:200px;height:60px;" alt="">
+						<a href=""style="margin-left:19%">
+						<img src="images/LOGO1.png" style="width:250px;height:70px;" alt="">
 					</a>
 
 					<div class="nav-collapse collapse navbar-inverse-collapse">

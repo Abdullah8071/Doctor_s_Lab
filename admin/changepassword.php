@@ -42,6 +42,7 @@ else {
         <link type="text/css" href="css/theme.css" rel="stylesheet">
         <link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
         <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
         <script type="text/javascript">
             function valid() {
                 if (document.chngpwd.password.value == "") {
@@ -77,8 +78,8 @@ else {
                     <a class="brand" href="index.php" style="margin-bottom:2%">
                     Doctor's Lab | Admin
                     </a>
-                    <a href="" style="margin-left:23%">
-                        <img src="images/LOGO1.png" style="width:200px;height:60px;" alt="">
+                    <a href=""style="margin-left:19%">
+						<img src="images/LOGO1.png" style="width:250px;height:70px;" alt="">
                     </a>
 
                     <div class="nav-collapse collapse navbar-inverse-collapse">

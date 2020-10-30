@@ -74,7 +74,7 @@ if (isset($_GET['id'])) {
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/accordian.css">
-
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
   <!-- Video css -->
   <link href="https://vjs.zencdn.net/5.10.4/video-js.css" rel="stylesheet">
 
@@ -114,7 +114,7 @@ if (isset($_GET['id'])) {
         <div class="d-flex align-items-center">
           <div class="site-logo">
             <a href="courses.php" class="d-block">
-              <img src="images/logo.jpg" alt="Image" class="img-fluid">
+            <img src="images/logo.png" alt="Image" height="100px" width=" 270px" class="img-fluid">
             </a>
           </div>
           <div class="mr-auto">

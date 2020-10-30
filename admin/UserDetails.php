@@ -29,6 +29,7 @@ else {
         <link type="text/css" href="css/theme.css" rel="stylesheet">
         <link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
         <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
     </head>
 
     <body>
@@ -42,8 +43,8 @@ else {
                     <a class="brand" href="index.php"  style="margin-bottom:2%">
                     Doctor's Lab | Admin
                         </a>
-                        <a href=""style="margin-left:23%">
-                        <img src="images/LOGO1.png" style="width:200px;height:60px;" alt="">
+                        <a href=""style="margin-left:19%">
+						<img src="images/LOGO1.png" style="width:250px;height:70px;" alt="">
                     </a>
 
                     <div class="nav-collapse collapse navbar-inverse-collapse">
@@ -113,7 +114,7 @@ else {
                                     <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Course Id</th>
+                                                <th>User</th>
                                                 <th>Course Name</th>
                                                 <th>Subscription Status</th>
                                                 <th>Delete</th>
@@ -126,7 +127,7 @@ else {
                                                 while ($row = mysqli_fetch_assoc($query)) {
                                                     ?>
                                                 <tr>
-                                                    <td><?php echo $row['fullname']; ?></td>
+                                                    <td><?php echo $row['fullname']; ?><br><?php echo $row['email']; ?></td>
                                                     <td><?php echo $row['course_name']; ?></td>
                                                     <td><?php echo $row['subscription_status']; ?></td>
                                                     <td>
