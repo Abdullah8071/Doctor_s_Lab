@@ -162,13 +162,14 @@ else {
 						<div class="sidebar">
 						<ul class="widget widget-menu unstyled" style="background-color: white">
 								<li><a href="AddCourse.php"><i class="menu-icon icon-tasks"></i>Add Course</a></li>
-								<li><a href="DeleteCourse.php"><i class="menu-icon icon-tasks"></i>Delete Course</a></li>
+								<li><a href="DeleteCourse.php"><i class="menu-icon icon-tasks"></i>View Courses</a></li>
 								
 								<li><a href="AddCourseContent.php"><i class="menu-icon icon-table"></i>Add Course Content </a></li>
-								<li><a href="DeleteCourseContent.php"><i class="menu-icon icon-table"></i>Delete Course Content</a></li>
+								<li><a href="DeleteCourseContent.php"><i class="menu-icon icon-table"></i>View Course Content</a></li>
                                 
                                 <li><a href="UserDetails.php"><i class="menu-icon icon-table"></i>User Course Details </a></li>
                                 <li><a href="RegisterUser.php"><i class="menu-icon icon-table"></i>Register User Course </a></li>
+                                <li><a href="ViewUsers.php"><i class="menu-icon icon-table"></i>View Users </a></li>
                                 <li><a href="logout.php"><i class="menu-icon icon-signout"></i>Logout</a></li>
 		
 							</ul>

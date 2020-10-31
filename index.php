@@ -14,7 +14,7 @@ if($con) {
 		$password = md5(mysqli_real_escape_string($con, $_POST['password']));
 
 
-		$query = "SELECT * FROM user WHERE (fullname = '$fullname_email' or email = '$fullname_email') and password = '$password'";
+		$query = "SELECT * FROM user WHERE (email = '$fullname_email') and password = '$password'";
 		$rows = mysqli_query($con, $query);
 		$row = mysqli_fetch_assoc($rows);
 
@@ -28,7 +28,7 @@ if($con) {
 			header('Location: courses.php');
 		}
 		else {
-			$_SESSION['up_error'] = "<strong>Error!</strong> Your name, email or password is incorrect ";
+			$_SESSION['up_error'] = "<strong>Error!</strong> Your email or password is incorrect ";
 		}
 
 	}
@@ -158,7 +158,7 @@ if($con) {
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <label for="fullname_email">Full Name / Email</label>
+                            <label for="fullname_email">Email</label>
                             <input type="text" id="fullname_email" name="fullname_email" class="form-control form-control-lg" required>
                         </div>
                         <div class="col-md-12 form-group">

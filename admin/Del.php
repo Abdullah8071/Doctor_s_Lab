@@ -10,6 +10,19 @@ if (!isset($_SESSION['aus'])) {
     header('location:index.php');
 }
 
+if(isset($_GET['userid']) and isset($_GET['email'])) {
+    $userid = $_GET['userid'];
+    $email = $_GET['email'];
+
+    $query = mysqli_query($con, "DELETE FROM user WHERE user_id = $userid and email = '$email'");   
+
+    if($query) {
+        $_SESSION['udelmsg'] = '<strong>Oh snap!</strong> The selected user against the selected course has been deleted successfully!!!';
+
+        header('Location: ViewUsers.php');
+    }   
+}
+
 if(isset($_GET['userid']) and isset($_GET['courseid'])) {
     $userid = $_GET['userid'];
     $courseid = $_GET['courseid'];

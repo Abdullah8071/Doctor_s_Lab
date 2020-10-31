@@ -25,7 +25,7 @@ else {
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin | Delete Content</title>
+        <title>Admin | View Content</title>
         <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
         <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -79,13 +79,14 @@ else {
                         <div class="sidebar">
                         <ul class="widget widget-menu unstyled" style="background-color: white">
 								<li><a href="AddCourse.php"><i class="menu-icon icon-tasks"></i>Add Course</a></li>
-								<li><a href="DeleteCourse.php"><i class="menu-icon icon-tasks"></i>Delete Course</a></li>
+								<li><a href="DeleteCourse.php"><i class="menu-icon icon-tasks"></i>View Courses</a></li>
 								
 								<li><a href="AddCourseContent.php"><i class="menu-icon icon-table"></i>Add Course Content </a></li>
-								<li><a href="DeleteCourseContent.php"><i class="menu-icon icon-table"></i>Delete Course Content</a></li>
+								<li><a href="DeleteCourseContent.php"><i class="menu-icon icon-table"></i>View Course Content</a></li>
                                 
                                 <li><a href="UserDetails.php"><i class="menu-icon icon-table"></i>User Course Details </a></li>
                                 <li><a href="RegisterUser.php"><i class="menu-icon icon-table"></i>Register User Course </a></li>
+                                <li><a href="ViewUsers.php"><i class="menu-icon icon-table"></i>View Users </a></li>
                                 <li><a href="logout.php"><i class="menu-icon icon-signout"></i>Logout</a></li>
 		
 							</ul>
@@ -99,7 +100,7 @@ else {
 
                             <div class="module">
                                 <div class="module-head">
-                                    <h3>Manage Course Content</h3>
+                                    <h3>View Course Content</h3>
                                 </div>
 
                                 <form class="form-horizontal row-fluid" name="insertproduct" method="get" enctype="multipart/form-data">

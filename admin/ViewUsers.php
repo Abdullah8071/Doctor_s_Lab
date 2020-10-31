@@ -3,6 +3,7 @@ session_start();
 
 include('config.php');
 
+///strlen($_SESSION['alogin']) == 0
 if (!isset($_SESSION['aus'])) {
 
     header('Location: index.php');
@@ -12,16 +13,17 @@ else {
     date_default_timezone_set('Asia/Karachi');
     $currentTime = date('d-m-Y h:i:s A', time());
 
-    // echo $_SESSION['aus'];
+    $username = $_SESSION['aus'];
 
 ?>
+
     <!DOCTYPE html>
     <html lang="en">
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin | Home</title>
+        <title>Admin | View Users</title>
         <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
         <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -38,10 +40,10 @@ else {
                         <i class="icon-reorder shaded"></i>
                     </a>
 
-                    <a class="brand" href="index.php" style="margin-bottom:2%">
+                    <a class="brand" href="index.php"  style="margin-bottom:2%">
                     Doctor's Lab | Admin
-                    </a>
-                    <a href=""style="margin-left:19%">
+                        </a>
+                        <a href=""style="margin-left:19%">
 						<img src="images/LOGO1.png" style="width:250px;height:70px;" alt="">
                     </a>
 
@@ -67,6 +69,7 @@ else {
             </div><!-- /navbar-inner -->
         </div><!-- /navbar -->
 
+
         <div class="wrapper">
             <div class="container">
                 <div class="row">
@@ -89,17 +92,51 @@ else {
                         <!--/.sidebar-->
                     </div>
                     <!--/.span3-->
+
                     <div class="span9">
                         <div class="content">
 
                             <div class="module">
                                 <div class="module-head">
-                                    <h3>Admin Home</h3>
+                                    <h3>View Users</h3>
                                 </div>
-                                <div class="module-body">
-                <h3 style="text-align:center">Welcome To Doctor's Lab Admin Portal</h3>
-                <center><img src="images/home2.png" style="width:200px;height:200px;" alt=""></center>
-                
+                                <div class="module-body table">
+                                    <?php if (isset($_SESSION['udelmsg'])) { ?>
+                                        <div class="alert alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <?php echo $_SESSION['udelmsg']; ?>
+                                            <?php unset($_SESSION['udelmsg']);?>
+
+                                        </div>
+                                    <?php } ?>
+
+                                    <br/>
+
+                                    <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Email</th>
+                                                <th>Phone Number</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $query = mysqli_query($con, "SELECT * FROM user");
+                                           
+                                                $cnt = 1;
+                                                while ($row = mysqli_fetch_assoc($query)) {
+                                                    ?>
+                                                <tr>
+                                                    <td><?php echo $row['fullname']; ?></td>
+                                                    <td><?php echo $row['email']; ?></td>
+                                                    <td><?php echo $row['phone']; ?></td>
+                                                    <td>
+                                                        <a href="Del.php?userid=<?php echo $row['user_id'] ?>&email=<?php echo $row['email'] ?>" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
+                                                </tr>
+                                            <?php $cnt = $cnt + 1;
+                                                } ?>
+                                    </table>
                                 </div>
                             </div>
 
@@ -116,14 +153,26 @@ else {
         <!--/.wrapper-->
 
         <div class="footer">
-		<div class="container">
-			<b class="copyright">&copy; 2020 Doctor's Lab </b>
-		</div>
-	</div>
+            <div class="container">
+
+
+                <b class="copyright">&copy; 2020 Doctor's Lab </b>
+            </div>
+        </div>
 
         <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
         <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
         <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+        <script src="scripts/datatables/jquery.dataTables.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.datatable-1').dataTable();
+                $('.dataTables_paginate').addClass("btn-group datatable-pagination");
+                $('.dataTables_paginate > a').wrapInner('<span />');
+                $('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+                $('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+            });
+        </script>
     </body>
 <?php } ?>

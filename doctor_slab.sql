@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2020 at 11:36 AM
+-- Generation Time: Oct 31, 2020 at 09:45 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `course` (
   `course_id` int(11) NOT NULL,
-  `course_name` varchar(50) NOT NULL,
+  `course_name` varchar(100) NOT NULL,
   `course_instructor` varchar(50) NOT NULL,
   `course_fee` int(11) NOT NULL,
   `course_description` text NOT NULL,
   `starting_date` varchar(11) NOT NULL,
-  `course_cover_image` varchar(50) NOT NULL
+  `course_cover_image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -45,7 +45,7 @@ INSERT INTO `course` (`course_id`, `course_name`, `course_instructor`, `course_f
 (1, 'C', 'Shehzad', 1000, 'C is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, with a static type system. \r\n\r\nBy design, C provides constructs that map efficiently to typical machine instructions.', '2020-10-15', 'C_Language.jpg'),
 (2, 'C++', 'Nauman Atique', 1500, 'C++ is a cross-platform language that can be used to create high-performance applications. \r\nC++ was developed by Bjarne Stroustrup, as an extension to the C language. \r\nC++ gives programmers a high level of control over system resources and memory.', '2020-10-25', 'C++_Language.jpg'),
 (3, 'Java', 'M. Rafi', 2000, 'Java is a popular programming language, created in 1995. It is owned by Oracle, and more than 3 billion devices run Java. It is used for: Mobile applications (specially Android apps) Desktop applications.\r\n\r\nJava is a popular programming language, created in 1995. It is owned by Oracle, and more than 3 billion devices run Java. It is used for: Mobile applications (specially Android apps) Desktop applications.', '2020-10-15', 'Java_Language.png'),
-(4, 'data', 'sasf', 342, 'asdasdasd', '2020-10-28', 'download.jpg');
+(5, 'Hala Madrid', 'NAveed', 4000, 'https://meet.google.com/ayv-vnvr-zjp', '2020-10-31', 'images_(1).jpg');
 
 -- --------------------------------------------------------
 
@@ -56,21 +56,21 @@ INSERT INTO `course` (`course_id`, `course_name`, `course_instructor`, `course_f
 CREATE TABLE `course_content` (
   `course_content_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
-  `course_name` varchar(50) NOT NULL,
+  `course_name` varchar(100) NOT NULL,
   `course_day` varchar(10) NOT NULL,
   `lecture_name` varchar(100) NOT NULL,
-  `zoom_link` varchar(30) NOT NULL,
-  `video_1_name` varchar(50) NOT NULL,
-  `video_1` varchar(50) NOT NULL,
-  `video_2_name` varchar(50) NOT NULL,
-  `video_2` varchar(50) NOT NULL,
-  `video_3_name` varchar(50) NOT NULL,
-  `video_3` varchar(50) NOT NULL,
-  `video_4_name` varchar(50) NOT NULL,
-  `video_4` varchar(50) NOT NULL,
-  `video_5_name` varchar(50) NOT NULL,
-  `video_5` varchar(50) NOT NULL,
-  `lecture_document` varchar(50) NOT NULL
+  `zoom_link` varchar(300) NOT NULL,
+  `video_1_name` varchar(100) NOT NULL,
+  `video_1` varchar(100) NOT NULL,
+  `video_2_name` varchar(100) NOT NULL,
+  `video_2` varchar(100) NOT NULL,
+  `video_3_name` varchar(100) NOT NULL,
+  `video_3` varchar(100) NOT NULL,
+  `video_4_name` varchar(100) NOT NULL,
+  `video_4` varchar(100) NOT NULL,
+  `video_5_name` varchar(100) NOT NULL,
+  `video_5` varchar(100) NOT NULL,
+  `lecture_document` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -78,8 +78,7 @@ CREATE TABLE `course_content` (
 --
 
 INSERT INTO `course_content` (`course_content_id`, `course_id`, `course_name`, `course_day`, `lecture_name`, `zoom_link`, `video_1_name`, `video_1`, `video_2_name`, `video_2`, `video_3_name`, `video_3`, `video_4_name`, `video_4`, `video_5_name`, `video_5`, `lecture_document`) VALUES
-(1, 4, 'data', 'Day_1', 'sdfsdf', 'sdfsdf', 'sdfsdf', 'videoplayback.mp4', '', '', '', '', '', '', '', '', 'PakRailTicket.pdf'),
-(2, 4, 'data', 'Day_2', 'Pointers', 'https://stockanalysis.com/term', 'abdill', 'vlc-record-2020-09-22-22h51m03s-Verna_2017_-_www.L', '', '', '', '', '', '', '', '', 'Capture.PNG');
+(1, 5, 'Hala Madrid', 'Day_1', 'Pointers', 'https://meet.google.com/ayv-vn', 'abdill', 'videoplayback_(1).mp4', '', '', '', '', '', '', '', '', 'PakRailTicket.pdf');
 
 -- --------------------------------------------------------
 
@@ -137,7 +136,9 @@ CREATE TABLE `user_reg_courses` (
 --
 
 INSERT INTO `user_reg_courses` (`user_id`, `course_id`, `subscription_status`) VALUES
-(2, 4, 1);
+(2, 2, 1),
+(2, 5, 1),
+(3, 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -183,7 +184,7 @@ ALTER TABLE `user_reg_courses`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
