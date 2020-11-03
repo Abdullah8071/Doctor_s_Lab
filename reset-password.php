@@ -4,34 +4,58 @@ session_start();
 
 include('config.php');
 
-if(isset($_SESSION['id'])) {
-	header('Location: courses.php');
+if(!isset($_SESSION['user_id']) or !isset($_GET['token'])) {
+	header('Location: index.php');
 }
 
 if($con) {
-	if(isset($_POST['submit'])) {
-		$fullname_email = mysqli_real_escape_string($con, $_POST['fullname_email']);
-		$password = md5(mysqli_real_escape_string($con, $_POST['password']));
+  date_default_timezone_set('Europe/London');
+  $tkn_decode = base64_decode($_GET['token']);
+  $user_id = $_SESSION['user_id'];
 
+  // echo $tkn_decode . '<br>';
 
-		$query = "SELECT * FROM user WHERE (email = '$fullname_email') and password = '$password'";
-		$rows = mysqli_query($con, $query);
-		$row = mysqli_fetch_assoc($rows);
+  $array = explode("~", $tkn_decode);
 
+  if(count($array) === 3) {
+    // echo $array[0] . '<br>';
+    // echo $array[1] . '<br>';
+    // echo $array[2] . '<br>';
 
-		
-		if(mysqli_num_rows($rows) === 1) {
+    if($array[0] === $_SESSION['user_id'] and sha1($_SESSION['email']) === $array[1]) {
+      if(strtotime($array[2]) >= strtotime(date("d-m-Y h:i:s", time()))) {
+        if(isset($_POST['submit'])) {
+          $password = mysqli_real_escape_string($con, $_POST['password']);
+          $cpassword = mysqli_real_escape_string($con, $_POST['cpassword']);
 
-			$_SESSION['id'] = $row['user_id'];
-			unset($_SESSION['up_error']);
-			unset($_SESSION['register']);
-			header('Location: courses.php');
-		}
-		else {
-			$_SESSION['up_error'] = "<strong>Error!</strong> Your email or password is incorrect ";
-		}
+          if($password === $cpassword) {
+            $password = md5($password);
+            $query3 = mysqli_query($con, "update user set password= '$password' where user_id = $user_id") or die("Update Unsuccessful Retry");
 
-	}
+            if($query3) {
+              $_SESSION['rp_success'] = "<strong>Update!</strong> Your password has successfully been updated ";
+            }
+            // unset($_SESSION['user_id']);
+            // unset($_SESSION['email']);
+            unset($_SESSION['rp_error']);
+          }
+          else {
+            $_SESSION['rp_error'] = "<strong>Error!</strong> Your new password and confirm password doesn't match";
+          }
+        }
+      }
+      else {
+        $_SESSION['exp_tkn'] = "<strong>Error!</strong> Token expired";
+      }
+    }
+    else {
+      $_SESSION['inv_tkn'] = "<strong>Error!</strong> Invalid token";
+    }
+  }
+  else {
+    $_SESSION['inv_tkn'] = "<strong>Error!</strong> Invalid token";
+  }
+
 }
 
 ?>
@@ -121,8 +145,8 @@ if($con) {
         <div class="container">
           <div class="row align-items-end justify-content-center text-center">
             <div class="col-lg-7">
-              <h2 class="mb-0">Login</h2>
-              <p>Welcome to Doctor's Lab</p>
+              <h2 class="mb-0">Reset Password</h2>
+              <p>Reset Your Password!</p>
             </div>
           </div>
         </div>
@@ -133,62 +157,94 @@ if($con) {
       <div class="container">
         <a href="index.php">Home</a>
         <span class="mx-3 icon-keyboard_arrow_right"></span>
-        <span class="current">Login</span>
+        <a href="index.php">Login</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <a href="forgot-password.php">Forgot Password</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Reset Password</span>
       </div>
     </div>
 
     <div class="site-section">
         <div class="container">
-
-
-            <form class="row justify-content-center" method = "post">
-                <div class="col-md-5">
-
-                  <?php if (isset($_SESSION['register'])) { ?>
+            <?php if (isset($_SESSION['inv_tkn'])) { ?>
                   <div class="row">
               <div class="col-md-12 form-group">
-                            <div class="alert alert-info">
+                            <div class="alert alert-danger">
                   <button type="button" class="close" data-dismiss="alert">×</button>
-                  <?php echo "<strong>Registered!</strong> Please login to continue "; ?>
+                  <?php echo $_SESSION['inv_tkn']; ?>
+                  <?php unset($_SESSION['inv_tkn']); ?>
+                </div>
+                          </div>
+                      </div>
+          <?php } else if (isset($_SESSION['exp_tkn'])) { ?>
+                  <div class="row">
+              <div class="col-md-12 form-group">
+                            <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <?php echo $_SESSION['exp_tkn']; ?>
+                  <?php unset($_SESSION['exp_tkn']); ?>
+                </div>
+                          </div>
+                      </div>                 
+
+          <?php } else { ?>
+
+            <form class="row justify-content-center" method = "post">
+              <div class="col-md-5">
+                  
+                <?php if (isset($_SESSION['rp_error'])) { ?>
+                  <div class="row">
+              <div class="col-md-12 form-group">
+                            <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <?php echo $_SESSION['rp_error']; ?>
+                  <?php unset($_SESSION['rp_error']); ?>
                 </div>
                           </div>
                       </div>
           <?php } ?>
-                	
-            		<?php if (isset($_SESSION['up_error'])) { ?>
-            			<div class="row">
-							<div class="col-md-12 form-group">
-	                        	<div class="alert alert-danger">
-									<button type="button" class="close" data-dismiss="alert">×</button>
-									<?php echo $_SESSION['up_error']; ?>
-									<?php unset($_SESSION['up_error']); ?>
-								</div>
-	                        </div>
-	                    </div>
-					<?php } ?>
 
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label for="fullname_email">Email</label>
-                            <input type="text" id="fullname_email" name="fullname_email" class="form-control form-control-lg" required>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" class="form-control form-control-lg" required>
-                        </div>
+          <?php if (isset($_SESSION['rp_success'])) { ?>
+                  <div class="row">
+              <div class="col-md-12 form-group">
+                            <div class="alert alert-success">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <?php echo $_SESSION['rp_success']; ?>
+                  <?php unset($_SESSION['rp_success']); ?>
+                </div>
+                          </div>
+                      </div>
+          <?php } ?>
+
+                  <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-control form-control-lg" required>
                     </div>
-                    <div>
-                      <p>Forgot your password? <a href = "forgot-password.php">Recover it!</a></p>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="password">Confirm Password</label>
+                        <input type="password" id="password" name="cpassword" class="form-control form-control-lg" required>
                     </div>
+                  </div>
 
                     <div class="row">
                         <div class="col-12">
-                        	<button type="submit" class="btn btn-primary btn-lg px-5" name="submit">Log In</button>
+                          <button type="submit" class="btn btn-primary btn-lg px-5" name="submit">Reset</button>
                         </div>
                     </div>
                   </div>
                 </form>
+
+         <?php }
+
+          ?>
           
+            
+
         </div>
     </div>
 
