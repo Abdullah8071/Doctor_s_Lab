@@ -130,7 +130,7 @@ else {
                                                     <td><?php echo $row['course_id']; ?></td>
                                                     <td><?php echo $row['course_name']; ?></td>
                                                     <td><?php echo $row['course_instructor']; ?></td>
-                                                    <td><?php echo 'Rs. ' . $row['course_fee']; ?></td>
+                                                    <td><?php echo '£ . ' . $row['course_fee']; ?></td>
                                                     <td>
                                                         <a href="Del.php?id=<?php echo $row['course_id'] ?>&del=wer62yror82" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
                                                 </tr>

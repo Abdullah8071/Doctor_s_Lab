@@ -149,7 +149,7 @@ if(!isset($_SESSION['id'])) {
 			                        <p><strong class="text-black d-block">Teacher:</strong> <?php echo $row['course_instructor']; ?></p>
 			                        <p><strong class="text-black d-block">Start Date:</strong> <?php $row['starting_date'] = date("d-m-Y", strtotime($row['starting_date'])); echo $row['starting_date']; ?></p>
 			                        <p><strong class="text-black d-block">End Date:</strong><?php $date = strtotime("14 day", strtotime($row['starting_date'])); $date = date("d-m-Y", $date); echo $date; ?></p>
-			                        <p><strong class="text-black d-block">Course Fee:</strong>Rs. <?php echo $row['course_fee']; ?></p>
+			                        <p><strong class="text-black d-block">Course Fee:</strong>£. <?php echo $row['course_fee']; ?></p>
 			                        <p><strong class="text-black d-block">Description:</strong></p>
 			                        <p style = "white-space: pre-line;"><?php echo $row['course_description']; ?></p>
 			    
