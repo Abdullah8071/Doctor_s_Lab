@@ -110,16 +110,26 @@ else {
                                         <div class="controls">
                                             <select name="course_name1" id="course_name1" onchange='this.form.submit()' required>
                                                 <?php $query1 = mysqli_query($con, "Select course_id, course_name from course");
-                                                $cnt = 1;
-                                                while ($row1 = mysqli_fetch_array($query1)) {
+                                                $cid = mysqli_fetch_row($query1);
+                                                $ccid = $cid[0]; 
+                                                $ccname = $cid[1];
+                                                ?>
+
+                                                <option id = <?php echo $ccid ?> value=<?php echo $ccname; ?>><?php echo $ccname; ?></option>
+
+                                                <?php while ($row1 = mysqli_fetch_array($query1)) { 
                                                     ?>
+
                                                 <option id = <?php echo $row1['course_id'] ?> value=<?php echo $row1['course_name'] ?>><?php echo $row1['course_name'] ?></option>
 
                                                 document.getElementById('personlist').value=Person_ID;
                                                 
 
                                             <?php
-                                             } ?>
+                                             } ?> <script type="text/javascript">
+                                                        var varr = "<?php echo $ccid; ?>";
+                                                        console.log(varr);
+                                                    </script>
                                             </select>
                                         </div>
                                     </div> 
@@ -159,19 +169,10 @@ else {
                                                     $query = mysqli_query($con, "Select * from course_content where course_name = '$course_name'");
                                                 }
                                                 else {
-                                                    $query0 = mysqli_query($con, "Select * from course_content limit 1");
-                                                    if(mysqli_num_rows($query0) > 0) {
-                                                        $row0 = mysqli_fetch_array($query0);
-                                                        $idd = $row0['course_id'];
-
-                                                        $query = mysqli_query($con, "Select * from course_content where course_id = $idd");
-                                                    } 
-                                                    else {
-                                                        $query = mysqli_query($con, "Select * from course_content");
-                                                    }
+                                                    $query = mysqli_query($con, "Select * from course_content where course_id = $ccid");
                                                 }
                                                 $cnt = 1;
-                                                while ($row = mysqli_fetch_array($query)) {
+                                                while ($row = mysqli_fetch_assoc($query)) {
                                                     ?>
                                                 <tr>
                                                     <td><?php echo $cnt ?></td>
@@ -179,7 +180,7 @@ else {
                                                     <td><?php $row['course_day'] = str_replace("_", " ", $row['course_day']);
                                                             echo $row['course_day']; ?></td>
                                                     <td>
-                                                        <a href="Del.php?id=<?php echo $row['course_id'] ?>&day=<?php echo $row['course_day'] ?>" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
+                                                        <a href="Del.php?id=<?php echo $row['course_id'] ?>&day=<?php echo $row['course_day'] ?>" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign" style = "color: #da4f49; text-decoration: none;"></i></a></td>
                                                 </tr>
                                             <?php $cnt = $cnt + 1;
                                                 } ?>

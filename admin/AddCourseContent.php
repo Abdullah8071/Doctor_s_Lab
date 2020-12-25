@@ -4,7 +4,6 @@ session_start();
 include('config.php');
 
 if (!isset($_SESSION['aus'])) {
-
     header('location:index.php');
 } 
 
@@ -27,28 +26,39 @@ else {
 		$video_3 = $_FILES["video_3"]["name"];
 		$video_4_name = mysqli_real_escape_string($con, $_POST['video_4_name']);
 		$video_4 = $_FILES["video_4"]["name"];
-		$video_5_name = $_POST['video_5_name'];
+		$video_5_name = mysqli_real_escape_string($con, $_POST['video_5_name']);
 		$video_5 = $_FILES["video_5"]["name"];
 		$lecture_document = mysqli_real_escape_string($con, $_FILES["lecture_document"]["name"]);
 
 
-		$video_1 = str_replace(" ", "_", $video_1);
 		$course_day = str_replace(" ", "_", $course_day);
+		$forbidden = array("#", "~", "-", "&", ",", "<", ">", "/", "[", "]", "{", "}");
 
+		if(!empty($video_1)) {
+			$video_1 = str_replace($forbidden, "", $video_1);
+			$video_1 = str_replace(" ", "_", $video_1);
+		}
 		if(!empty($video_2)) {
+			$video_2 = str_replace($forbidden, "", $video_2);
 			$video_2 = str_replace(" ", "_", $video_2);
 		}
 		if(!empty($video_3)) {
+			$video_3 = str_replace($forbidden, "", $video_3);
 			$video_3 = str_replace(" ", "_", $video_3);
 		}
 		if(!empty($video_4)) {
+			$video_4 = str_replace($forbidden, "", $video_4);
 			$video_4 = str_replace(" ", "_", $video_4);
 		}
 		if(!empty($video_5)) {
+			$video_5 = str_replace($forbidden, "", $video_5);
 			$video_5 = str_replace(" ", "_", $video_5);
 		}
-
-		$lecture_document = str_replace(" ", "_", $lecture_document);
+		if(!empty($lecture_document)) {
+			$lecture_document = str_replace($forbidden, "", $lecture_document);
+			$lecture_document = str_replace(" ", "_", $lecture_document);
+		}
+		
 
 		//for getting content id
 		$query = mysqli_query($con, "Select max(course_content_id) as pid from course_content");
@@ -283,7 +293,7 @@ else {
                                         <div class="control-group">
 											<label class="control-label" for="basicinput">Lecture Video 1<i class="fas fa-wifi-1    "></i></label>
 											<div class="controls">
-												<input type="file" accept="video/*" name="video_1" id="productimage1" class="span8 tip" required>
+												<input type="file" accept="video/*" name="video_1" id="video_1" class="span8 tip" required>
 											
 											</div>
 										</div>
@@ -298,7 +308,7 @@ else {
                                         <div class="control-group">
 											<label class="control-label" for="basicinput">Lecture Video 2 (optional)</label>
 											<div class="controls">
-												<input type="file" accept="video/*" name="video_2" id="productimage1" class="span8 tip">
+												<input type="file" accept="video/*" name="video_2" id="video_2" class="span8 tip">
 											
 											</div>
 										</div>
@@ -313,7 +323,7 @@ else {
                                         <div class="control-group">
 											<label class="control-label" for="basicinput">Lecture Video 3 (optional)</label>
 											<div class="controls">
-												<input type="file" accept="video/*" name="video_3" id="productimage1" class="span8 tip">
+												<input type="file" accept="video/*" name="video_3" id="video_3" class="span8 tip">
 											
 											</div>
 										</div>
@@ -328,7 +338,7 @@ else {
                                         <div class="control-group">
 											<label class="control-label" for="basicinput">Lecture Video 4 (optional)</label>
 											<div class="controls">
-												<input type="file" accept="video/*" name="video_4" id="productimage1" class="span8 tip">
+												<input type="file" accept="video/*" name="video_4" id="video_4" class="span8 tip">
 											
 											</div>
 										</div>
@@ -343,7 +353,7 @@ else {
                                         <div class="control-group">
 											<label class="control-label" for="basicinput">Lecture Video 5 (optional)</label>
 											<div class="controls">
-												<input type="file" accept="video/*" name="video_5" id="productimage1" class="span8 tip">
+												<input type="file" accept="video/*" name="video_5" id="video_5" class="span8 tip">
 											
 											</div>
 										</div>
@@ -351,11 +361,15 @@ else {
                                         <div class="control-group">
 											<label class="control-label" for="basicinput">Lecture Document</label>
 											<div class="controls">
-												<input type="file" name="lecture_document" id="productimage1" value="" class="span8 tip" required>
+												<input type="file" name="lecture_document" id="lecture_document" value="" class="span8 tip" required>
 											</div>
 										</div>
 
-
+										<div class="control-group">
+											<div class="progress">
+											  <div id = "inner_bar" class="progress bar progress-striped progress-info" role="progressbar" ></div>
+											</div>
+										</div>
 										
 											</div>
 
@@ -363,7 +377,7 @@ else {
 
 										<div class="control-group">
 											<div class="controls">
-												<button type="submit" name="submit" class="btn btn-success">Add</button>
+												<button type="submit" name="submit" class="btn btn-success" onclick = "uploadFiles()">Add</button>
 											</div>
 										</div>
 									</form>
@@ -403,6 +417,43 @@ else {
 				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
 				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 			});
+
+
+			function uploadFiles() {
+				// alert("Hi");
+				var formdata = new FormData();
+
+				
+				for(var i = 1; i <= 5; i++) {
+					var file = document.getElementById("video_" + i).files[0];
+
+					if(file) {
+						formdata.append("video_" + i, file);
+						console.log(formdata.get("video_" + i));
+					}
+				}
+
+				formdata.append("lecture_document", document.getElementById("lecture_document").files[0]);
+				console.log(formdata.get("lecture_document"));
+
+				var ajax = new XMLHttpRequest();
+				ajax.upload.addEventListener("progress", progressHandler, false);
+				ajax.addEventListener("load", completeHandler, false);
+				ajax.open("POST", "AddCourseContent.php");
+				ajax.send(formdata);
+			}
+
+			function progressHandler(event) {
+				var percent = (event.loaded / event.total) * 100;
+				console.log(percent);
+				document.getElementById("inner_bar").innerHTML = Math.round(percent) + "%";
+				document.getElementById("inner_bar").style.width = Math.round(percent) + "%";
+			}
+
+			function completeHandler(event) {
+				console.log("Hogya");
+				document.getElementById("inner_bar").style.width = "0%";
+			}
 		</script>
 	</body>
 	<?php } ?>
