@@ -19,7 +19,7 @@ else {
 		$course_instructor = mysqli_real_escape_string($con, $_POST['courseinstructor']);
 		$course_fee = $_POST['coursefee'];
 		$course_description = mysqli_real_escape_string($con, $_POST['coursedescription']);
-		$starting_date = mysqli_real_escape_string($con, $_POST['startingdate']);
+		// $starting_date = mysqli_real_escape_string($con, $_POST['startingdate']);
 		$course_cover_image = mysqli_real_escape_string($con, $_FILES["coursecoverimage"]["name"]);
 
 		$course_cover_image = str_replace(" ", "_", $course_cover_image);
@@ -34,7 +34,7 @@ else {
 		}
 
 		move_uploaded_file($_FILES["coursecoverimage"]["tmp_name"], "course_cover_images/$course_id/$course_cover_image");
-		$query = "INSERT INTO course (course_id,course_name,course_instructor,course_fee,course_description,starting_date,course_cover_image) VALUES ('$course_id','$course_name','$course_instructor','$course_fee','$course_description','$starting_date','$course_cover_image')";
+		$query = "INSERT INTO course (course_id,course_name,course_instructor,course_fee,course_description,course_cover_image) VALUES ('$course_id','$course_name','$course_instructor','$course_fee','$course_description','$course_cover_image')";
 		$sql = mysqli_query($con, $query) or die("Unsuccessful Retry");
 		$_SESSION['msg'] = "<strong>Well done! </strong>Course Inserted Successfully!!!";
     }
@@ -183,12 +183,12 @@ else {
 										</div>
 
 										
-										<div class="control-group">
+										<!-- <div class="control-group">
 											<label class="control-label" for="basicinput">Starting Date</label>
 											<div class="controls">
 												<input type="date" name="startingdate" class="span8 tip" id="startingdate" onchange = "myFunction()" required>
 											</div>
-										</div>
+										</div> -->
 
 										<!-- <div class="control-group">
 											<label class="control-label" for="basicinput">Ending Date</label>
