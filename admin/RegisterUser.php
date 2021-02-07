@@ -27,11 +27,17 @@ if (!isset($_SESSION['aus'])) {
 		$user_id = $_POST['user_id'];
 		$course_id = $_POST['course_id'];
 		$status = intval($_POST['status']);
+		$reg_date = date("d-m-Y");
 
 		$query = mysqli_query($con, "select * from user_reg_courses where user_id = $user_id and course_id = $course_id");
 
 		if(mysqli_num_rows($query) === 1) {
-			$query3 = mysqli_query($con, "update user_reg_courses set subscription_status=$status where user_id = $user_id and course_id = $course_id") or die("Update Unsuccessful Retry");
+			if($status) {
+				$query3 = mysqli_query($con, "update user_reg_courses set subscription_status=$status, reg_date = '$reg_date' where user_id = $user_id and course_id = $course_id") or die("Update Unsuccessful Retry");	
+			}
+			else {
+				$query3 = mysqli_query($con, "update user_reg_courses set subscription_status=$status, reg_date = '' where user_id = $user_id and course_id = $course_id") or die("Update Unsuccessful Retry");
+			}
 
 			if($query3) {
 				$_SESSION['update'] = "<strong>Update!</strong> The selected user's subscription status has successfully updated to " . $status;
@@ -39,7 +45,7 @@ if (!isset($_SESSION['aus'])) {
 		}
 
 		else {
-			$query3 = mysqli_query($con, "INSERT INTO user_reg_courses (user_id, course_id, subscription_status) VALUES ($user_id, $course_id, $status)") or die("Add Unsuccessful Retry");
+			$query3 = mysqli_query($con, "INSERT INTO user_reg_courses (user_id, course_id, subscription_status, reg_date) VALUES ($user_id, $course_id, $status, '$reg_date')") or die("Add Unsuccessful Retry");
 
 			if($query3) {
 				$_SESSION['add'] = "<strong>Success!</strong> The selected user has been successfully registered into the selected course";

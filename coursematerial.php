@@ -18,10 +18,10 @@ if (isset($_GET['id'])) {
 	$userid = $_SESSION['id'];
 	// echo $username . '<br>';
 	// echo $id . '<br>';
-	$query = "SELECT * from user_reg_courses where user_id = $userid and course_id = $id and subscription_status = 1";
-	$row = mysqli_query($con, $query) or die("Not registered");
+	$user_reg_query = "SELECT * from user_reg_courses where user_id = $userid and course_id = $id and subscription_status = 1";
+	$user_reg_rows = mysqli_query($con, $user_reg_query) or die("Not registered");
 
-	if(mysqli_num_rows($row)) {
+	if(mysqli_num_rows($user_reg_rows)) {
 		$query = "SELECT * from course_content where course_id = $id";
 		$rows = mysqli_query($con, $query) or die("Course content not found");
 
@@ -155,8 +155,8 @@ if (isset($_GET['id'])) {
             <div class="list-group" id="list-tab" role="tablist">
 
               <?php 
-
-              $date = strtotime($row1['starting_date']); 
+              $user_reg_row = mysqli_fetch_assoc($user_reg_rows);
+              $date = strtotime($user_reg_row['reg_date']); 
               $dates = array();
               $date = date("d-m-Y", $date);
               $dates[0] = $current_date;

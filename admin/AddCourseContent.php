@@ -279,7 +279,7 @@ else {
 										<div class="control-group">
 											<label class="control-label" for="basicinput">Zoom Link</label>
 											<div class="controls">
-												<input type="text" name="zoom_link" placeholder="Enter Zoom Link" class="span8 tip" required>
+												<input type="text" name="zoom_link" placeholder="Enter Zoom Link" class="span8 tip">
 											</div>
 										</div>
 
@@ -433,14 +433,20 @@ else {
 					}
 				}
 
-				formdata.append("lecture_document", document.getElementById("lecture_document").files[0]);
-				console.log(formdata.get("lecture_document"));
+				var lec_doc = document.getElementById("lecture_document").files[0];
 
-				var ajax = new XMLHttpRequest();
-				ajax.upload.addEventListener("progress", progressHandler, false);
-				ajax.addEventListener("load", completeHandler, false);
-				ajax.open("POST", "AddCourseContent.php");
-				ajax.send(formdata);
+				if(lec_doc) {
+					formdata.append("lecture_document", lec_doc);
+					console.log(formdata.get("lecture_document"));
+				}
+
+				if(lec_doc) {
+					var ajax = new XMLHttpRequest();
+					ajax.upload.addEventListener("progress", progressHandler, false);
+					ajax.addEventListener("load", completeHandler, false);
+					ajax.open("POST", "AddCourseContent.php");
+					ajax.send(formdata);
+				}
 			}
 
 			function progressHandler(event) {

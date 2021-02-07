@@ -166,10 +166,10 @@ else {
                                                         document.getElementById('course_name1').value = val;
                                                     </script> <?php
                                                     
-                                                    $query = mysqli_query($con, "Select * from course_content where course_name = '$course_name'");
+                                                    $query = mysqli_query($con, "Select * from course_content where course_name = '$course_name' order by course_day");
                                                 }
                                                 else {
-                                                    $query = mysqli_query($con, "Select * from course_content where course_id = $ccid");
+                                                    $query = mysqli_query($con, "Select * from course_content where course_id = $ccid order by course_day");
                                                 }
                                                 $cnt = 1;
                                                 while ($row = mysqli_fetch_assoc($query)) {
@@ -180,7 +180,7 @@ else {
                                                     <td><?php $row['course_day'] = str_replace("_", " ", $row['course_day']);
                                                             echo $row['course_day']; ?></td>
                                                     <td>
-                                                        <a href="Del.php?id=<?php echo $row['course_id'] ?>&day=<?php echo $row['course_day'] ?>" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign" style = "color: #da4f49; text-decoration: none;"></i></a></td>
+                                                        <a href="Del.php?id=<?php echo $row['course_id'] ?>&day=<?php echo $row['course_day'] ?>" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
                                                 </tr>
                                             <?php $cnt = $cnt + 1;
                                                 } ?>

@@ -36,14 +36,17 @@ if($con) {
 
       //echo $tkn . '<br>';
 
-      $link = "http://" . DB_SERVER . "/Doctor's%20Lab/" ."reset-password.php?token=$tkn";
+      // You can change the redirecting link according to the Website exact link to the reset-password page
+      $link =  "https://" . DB_SERVER . "/Doctor's%20Lab/portal" ."reset-password.php?token=$tkn";
 
-      $message = "Hello, $fullname!" . '<br>' . "This email is sent to reset your Doctor's Plab account password. If this doesn't concern you then ignore this mail, else click on the link below:" . '<br>' . "<strong>Please note that this link will be of no use after 10 minutes!!!</strong>" . '<br><br>' . "<a href = $link target = '_blank'>Click here!</a>";
+      $message = "Hello, $fullname!" . '<br/><br/>' . "This email is sent to reset your Doctor's Plab account password. If this doesn't concern you then ignore this mail, else click on the link below:" . '<br/>' . "<strong>Please note that this link will be of no use after 10 minutes!!!</strong>" . '<br/><br/>' . "<a href = $link target = '_blank'>Click here!</a>";
 
-      $message = wordwrap($message,70);
+      // $message = wordwrap($message,70);
       // Change your mail here
       $from = "skynners.dev@gmail.com"; 
-      $headers = "From: $from";
+      $headers  = 'MIME-Version: 1.0' . "\r\n";
+      $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+      $headers .= 'From: $from' . "\r\n";
 
       // echo $message;
       if(mail($to, $subject, $message, $headers)) {
