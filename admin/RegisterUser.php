@@ -7,7 +7,7 @@ if (!isset($_SESSION['aus'])) {
 
 	header('location:index.php');
 } else {
-	date_default_timezone_set('Asia/Karachi');
+	date_default_timezone_set('Europe/London');
 	$currentTime = date('d-m-Y h:i:s A', time());
 
 	$username = $_SESSION['aus'];
