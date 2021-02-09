@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2020 at 09:45 PM
+-- Generation Time: Feb 09, 2021 at 06:50 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `course` (
   `course_id` int(11) NOT NULL,
-  `course_name` varchar(100) NOT NULL,
-  `course_instructor` varchar(50) NOT NULL,
+  `course_name` varchar(500) NOT NULL,
+  `course_instructor` varchar(500) NOT NULL,
   `course_fee` int(11) NOT NULL,
   `course_description` text NOT NULL,
   `starting_date` varchar(11) NOT NULL,
-  `course_cover_image` varchar(100) NOT NULL
+  `course_cover_image` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -58,27 +58,20 @@ CREATE TABLE `course_content` (
   `course_id` int(11) NOT NULL,
   `course_name` varchar(100) NOT NULL,
   `course_day` varchar(10) NOT NULL,
-  `lecture_name` varchar(100) NOT NULL,
-  `zoom_link` varchar(300) NOT NULL,
-  `video_1_name` varchar(100) NOT NULL,
-  `video_1` varchar(100) NOT NULL,
-  `video_2_name` varchar(100) NOT NULL,
-  `video_2` varchar(100) NOT NULL,
-  `video_3_name` varchar(100) NOT NULL,
-  `video_3` varchar(100) NOT NULL,
-  `video_4_name` varchar(100) NOT NULL,
-  `video_4` varchar(100) NOT NULL,
-  `video_5_name` varchar(100) NOT NULL,
-  `video_5` varchar(100) NOT NULL,
-  `lecture_document` varchar(100) NOT NULL
+  `lecture_name` varchar(1000) NOT NULL,
+  `zoom_link` varchar(1000) NOT NULL,
+  `video_1_name` varchar(1000) NOT NULL,
+  `video_1` varchar(1000) NOT NULL,
+  `video_2_name` varchar(1000) NOT NULL,
+  `video_2` varchar(1000) NOT NULL,
+  `video_3_name` varchar(1000) NOT NULL,
+  `video_3` varchar(1000) NOT NULL,
+  `video_4_name` varchar(1000) NOT NULL,
+  `video_4` varchar(1000) NOT NULL,
+  `video_5_name` varchar(1000) NOT NULL,
+  `video_5` varchar(1000) NOT NULL,
+  `lecture_document` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `course_content`
---
-
-INSERT INTO `course_content` (`course_content_id`, `course_id`, `course_name`, `course_day`, `lecture_name`, `zoom_link`, `video_1_name`, `video_1`, `video_2_name`, `video_2`, `video_3_name`, `video_3`, `video_4_name`, `video_4`, `video_5_name`, `video_5`, `lecture_document`) VALUES
-(1, 5, 'Hala Madrid', 'Day_1', 'Pointers', 'https://meet.google.com/ayv-vn', 'abdill', 'videoplayback_(1).mp4', '', '', '', '', '', '', '', '', 'PakRailTicket.pdf');
 
 -- --------------------------------------------------------
 
@@ -109,7 +102,7 @@ CREATE TABLE `user` (
   `fullname` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `phone` varchar(20) NOT NULL
+  `phone` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -128,17 +121,9 @@ INSERT INTO `user` (`user_id`, `fullname`, `email`, `password`, `phone`) VALUES
 CREATE TABLE `user_reg_courses` (
   `user_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
-  `subscription_status` int(1) NOT NULL
+  `subscription_status` int(1) NOT NULL,
+  `reg_date` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_reg_courses`
---
-
-INSERT INTO `user_reg_courses` (`user_id`, `course_id`, `subscription_status`) VALUES
-(2, 2, 1),
-(2, 5, 1),
-(3, 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -195,12 +180,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `course_content`
   ADD CONSTRAINT `course_content_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_reg_courses`
---
-ALTER TABLE `user_reg_courses`
-  ADD CONSTRAINT `user_reg_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
