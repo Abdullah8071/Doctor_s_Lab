@@ -157,7 +157,7 @@ if(!isset($_SESSION['id'])) {
 			     
                               <!-- Add Your Website link here -->
 			                        <p>
-			                            <a href="#" class="btn btn-primary rounded-0 btn-lg px-5">Register Now</a>
+			                            <a href="https://www.doctorslab.co.uk/product/main-plab2-course/" class="btn btn-primary rounded-0 btn-lg px-5">Register Now</a>
 			                        </p>
 			    
 			                    </div>

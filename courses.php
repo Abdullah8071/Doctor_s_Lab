@@ -123,7 +123,7 @@ if (!isset($_SESSION['id'])) {
     <center>
     <div class="control-group">
       <div class="controls clearfix">
-        <a href="#"><button class="btn btn-info pull-right" style="font-size: 20px;margin-top:3%">Register Now!</button></a>
+        <a href="https://www.doctorslab.co.uk/product/main-plab2-course/"><button class="btn btn-info pull-right" style="font-size: 20px;margin-top:3%">Register Now!</button></a>
 
       </div>
     </div>
