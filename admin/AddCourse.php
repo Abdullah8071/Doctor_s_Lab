@@ -24,6 +24,9 @@ else {
 
 		$course_cover_image = str_replace(" ", "_", $course_cover_image);
 
+		
+		$forbidden = array("#", "~", "-", "&", ",", "<", ">", "/", "[", "]", "{", "}", "(", ")","%","'",":",";","=","?","^","\\");
+		$course_cover_image = str_replace($forbidden, "", $course_cover_image);
 		//for getting cause id
 		$query = mysqli_query($con, "Select max(course_id) as pid from course");
 		$result = mysqli_fetch_assoc($query);
